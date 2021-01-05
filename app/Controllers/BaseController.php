@@ -31,6 +31,9 @@ class BaseController extends Controller
 	protected $output_data = [
 		"components" => []
 	];
+	protected $angular	 = [
+		"routes" => []
+	];
 	protected $components = [];
 
 	/**
@@ -58,7 +61,8 @@ class BaseController extends Controller
 			foreach ($modules as $module) :
 				$module_path = $stigniter_path . 'system/system-modules/';
 				$components_path  = 	$module_path . $module . '/Components/';
-
+				$routes_path  = 	$module_path . $module . '/routes.json';
+				
 				$components = scandir($components_path);
 				unset($components[0]);
 				unset($components[1]);
@@ -66,6 +70,19 @@ class BaseController extends Controller
 				foreach ($components as $component) :
 					$this->output_data['components'][] = $components_path . $component;
 				endforeach;
+
+				/* Routes */
+				if(file_exists($routes_path)):
+
+					$route = json_decode( file_get_contents($routes_path) , true );
+
+					foreach($route as $r):
+						$this->angular['routes'][] = $r;
+					endforeach;
+
+				endif;
+
+
 
 			endforeach;
 

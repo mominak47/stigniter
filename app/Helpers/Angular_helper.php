@@ -22,3 +22,27 @@ function generate_js_file($components, $name = false, $extension = "js"){
     file_put_contents($component_file, $output);
     return $public_url;
 }
+
+function createRouterFile($routes){
+    $data = "";
+    ob_start();
+        ?>
+
+app.config(function($routeProvider) {
+  $routeProvider
+  <?php foreach($routes as $r):?>
+  .when("<?= $r['path'];?>", {
+    template : "<?= $r['template'];?>"
+  })
+  <?php endforeach;?>
+});
+
+
+        <?php
+
+        $data = ob_get_contents();
+    ob_end_clean();
+
+    file_put_contents(ROOTPATH."stigniter/system/scripts/routes.js", $data);
+    return ROOTPATH."stigniter/system/scripts/routes.js";
+}

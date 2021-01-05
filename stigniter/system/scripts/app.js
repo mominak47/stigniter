@@ -1,9 +1,5 @@
 const app = angular.module("myApp", ["ngRoute"]);
 
-
-app.config(function($routeProvider) {
-    $routeProvider
-    .when("/", {
-        template : "<login/>"
-    })
-});
+app.run(['$http', function ($http) {
+    $http.defaults.headers.common['STIGNITER-AJAX'] = 'AJAX-CONTENT-REQUESTED';
+}]);
