@@ -1,7 +1,7 @@
 <?php
 
 
-function generate_js_file($components, $name = false, $extension = "js"){
+function generate_file($components, $name = false, $extension = "js"){
     $filename = ($name) ? $name : md5(rand(15361, 54486468));
     
     $output   = "";

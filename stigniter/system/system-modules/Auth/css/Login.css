@@ -1,0 +1,8 @@
+login .footer {
+    text-align: center;
+    color: grey
+}
+
+login .rounded {
+    border-radius: 8px;
+}

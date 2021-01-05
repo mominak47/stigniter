@@ -1,10 +1,18 @@
 [
- {
-     "path" : "/",
-     "template" : "<login/>"
- },
- {
-     "path" : "/auth/register",
-     "template" : "<register/>"
- }
+    {
+        "path": "/login",
+        "template": "<login/>"
+    },
+    {
+        "path": "/auth/login",
+        "template": "<login/>"
+    },
+    {
+        "path": "/",
+        "template": "<login/>"
+    },
+    {
+        "path": "/auth/register",
+        "template": "<register/>"
+    }
 ]

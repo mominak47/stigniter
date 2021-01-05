@@ -4,15 +4,17 @@ class Home extends BaseController
 {
 	public function index()
 	{
-		// generate_js_file(ROOTPATH."/stigniter/system/node_modules/angular/angular.min.js.map", "angular.min.js", "map");
 
 		return view('app', [
+			"styles"  => [
+				"login"	=> generate_file(ROOTPATH."/stigniter/system/system-modules/Auth/css/Login.css", "login", "css")
+			],
 			"scripts" => [
-				"angular"		=> generate_js_file(ROOTPATH."/stigniter/system/node_modules/angular/angular.min.js", "angular.min", "js"),
-				"angular-route"		=> generate_js_file(ROOTPATH."/stigniter/system/scripts/route.js", "angular.route", "js"),
-				"app"			=> generate_js_file(ROOTPATH."/stigniter/system/scripts/app.js"),
-				"components" 	=> generate_js_file($this->output_data['components']),
-				"router"		=> generate_js_file( createRouterFile($this->angular['routes']) )
+				"angular"		=> generate_file(ROOTPATH."/stigniter/system/node_modules/angular/angular.min.js", "angular.min", "js"),
+				"angular-route"		=> generate_file(ROOTPATH."/stigniter/system/scripts/route.js", "angular.route", "js"),
+				"app"			=> generate_file(ROOTPATH."/stigniter/system/scripts/app.js"),
+				"components" 	=> generate_file($this->output_data['components']),
+				"router"		=> generate_file( createRouterFile($this->angular['routes']) )
 			]
 		]);
 	}
