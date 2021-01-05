@@ -69,3 +69,18 @@ if(file_exists($stigniter_path . 'modules' )):
 	endforeach;
 
 endif;
+
+
+if(file_exists($stigniter_path . 'system/system-modules' )):
+
+	$modules = scandir($stigniter_path . 'system/system-modules');
+	unset($modules[0]); /* Removes /.. */
+	unset($modules[1]); /* Removes /. */
+
+	foreach($modules as $module):
+		$module_path = $stigniter_path . 'system/system-modules/';
+		$route = 	$module_path . $module . '/Config/Routes.php';
+		if(file_exists($route)) require_once $route;
+	endforeach;
+
+endif;
