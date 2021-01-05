@@ -42,6 +42,8 @@ class Autoload extends AutoloadConfig
 	public $psr4 = [
 		APP_NAMESPACE => APPPATH, // For custom app namespace
 		'Config'      => APPPATH . 'Config',
+		'Modules'	  => ROOTPATH.'stigniter/modules',
+		'SystemModules'	  => ROOTPATH.'stigniter/system/system-modules',
 	];
 
 	/**

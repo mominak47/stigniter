@@ -49,3 +49,23 @@ if (file_exists(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php'))
 {
 	require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
 }
+
+
+$stigniter_path = ROOTPATH.'stigniter/';
+
+if(file_exists($stigniter_path . 'modules' )):
+
+	$modules = scandir($stigniter_path . 'modules');
+	unset($modules[0]); /* Removes /.. */
+	unset($modules[1]); /* Removes /. */
+
+	foreach($modules as $module):
+		$module_path = $stigniter_path . 'modules/';
+		$manifest = $module_path . $module . '/manifest.json';
+		$route = 	$module_path . $module . '/Config/Routes.php';
+
+		if(file_exists($route)) require_once $route;
+
+	endforeach;
+
+endif;
