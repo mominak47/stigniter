@@ -1,5 +1,4 @@
-[
-    {
+[{
         "path": "/login",
         "template": "<login/>"
     },

@@ -30,7 +30,8 @@ class BaseController extends Controller
 	 */
 	protected $helpers = ["angular"];
 	protected $output_data = [
-		"components" => []
+		"components" => [],
+		"translations" => []
 	];
 	protected $angular	 = [
 		"routes" => []
@@ -61,9 +62,11 @@ class BaseController extends Controller
 			unset($modules[1]); /* Removes /. */
 
 			foreach ($modules as $module) :
+				$module_name = strtolower($module);
 				$module_path = $stigniter_path . 'system/system-modules/';
 				$components_path  = 	$module_path . $module . '/Components/';
 				$routes_path  = 	$module_path . $module . '/routes.json';
+				$languages  = 	$module_path . $module . '/Languages/en.json'; /* Taking EN while development */
 				
 				$components = scandir($components_path);
 				unset($components[0]);
@@ -84,6 +87,16 @@ class BaseController extends Controller
 
 				endif;
 
+
+				
+				/* Translations */
+				if(file_exists($languages)):
+
+					$languages = json_decode( file_get_contents($languages) , true );
+					
+					$this->output_data['translations'][$module_name] = $languages;
+
+				endif;
 
 
 			endforeach;

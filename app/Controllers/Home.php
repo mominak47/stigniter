@@ -15,7 +15,8 @@ class Home extends BaseController
 				"app"			=> generate_file(ROOTPATH."/stigniter/system/scripts/app.js"),
 				"components" 	=> generate_file($this->output_data['components']),
 				"router"		=> generate_file( createRouterFile($this->angular['routes']) )
-			]
+			],
+			"translations" => $this->output_data['translations']
 		]);
 	}
 

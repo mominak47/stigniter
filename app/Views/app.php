@@ -42,6 +42,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.2.1/angular-material.min.js"></script>
 
 
+    <script>
+        window.translations = <?= json_encode( $translations );?>
+    </script>
+
 </head>
 <body>
 

@@ -8,17 +8,17 @@
                     <figure>
                         <img src="<?= base_url("assets/site-logo.png");?>" alt="">
                     </figure>
-                    <small>Login with your email address.</small>
+                    <small>{{strings["Login with your email address."]}}</small>
                 </div>
                 <form name="userForm">
                     <md-input-container class="md-block">
-                        <label>Email/Username</label>
+                        <label>{{strings["Email/Username"]}}</label>
                         <input ng-model="user.email" id="input_email">
                     </md-input-container>
 
 
                     <md-input-container class="md-block">
-                        <label>Password</label>
+                        <label>{{strings["Password"]}}</label>
                         <input ng-model="user.password" type="password">
                     </md-input-container>
 
