@@ -12,7 +12,14 @@ class Auth extends BaseController
 
 	public function index()
 	{
+        $this->is_angular_view();
         echo view($this->viewpath . "login");
+    }
+    
+    public function register()
+	{
+        $this->is_angular_view();
+        echo view($this->viewpath . "register");
 	}
 
 }

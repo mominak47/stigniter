@@ -4,8 +4,8 @@ app.config(function($routeProvider) {
     .when("/", {
     template : "<login/>"
   })
-    .when("/register", {
-    template : "<login/>"
+    .when("/auth/register", {
+    template : "<register/>"
   })
   });
 

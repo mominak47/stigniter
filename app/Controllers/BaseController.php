@@ -16,6 +16,7 @@ namespace App\Controllers;
  */
 
 use CodeIgniter\Controller;
+use CodeIgniter\HTTP\IncomingRequest;
 
 class BaseController extends Controller
 {
@@ -43,6 +44,7 @@ class BaseController extends Controller
 	{
 		// Do Not Edit This Line
 		parent::initController($request, $response, $logger);
+		$this->request = service('request');
 		$this->cleanup();
 		$this->loadSystemModules();
 	}
@@ -102,5 +104,16 @@ class BaseController extends Controller
 				// Delete the given file 
 				unlink($file);
 		}
+	}
+
+	protected function is_angular_view(){
+		$this->request = service('request');
+	
+		if(!$this->request->getHeader('STIGNITER-AJAX')){
+			$path = $this->request->uri->getPath();
+			header("Location:".base_url("/#!/$path"));
+			exit;
+		}
+
 	}
 }

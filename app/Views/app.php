@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <?php
     foreach($scripts as $file => $sc) : 
         if($file == 'angular'):

@@ -4,7 +4,7 @@
      "template" : "<login/>"
  },
  {
-     "path" : "/register",
-     "template" : "<login/>"
+     "path" : "/auth/register",
+     "template" : "<register/>"
  }
 ]

@@ -13,9 +13,8 @@ function generate_js_file($components, $name = false, $extension = "js"){
     }else{
 
         foreach($components as $c):
-            $output .= file_get_contents($c);
+            $output .= file_get_contents($c)."\n";
         endforeach;
-
     }
 
 
