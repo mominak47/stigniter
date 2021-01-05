@@ -6,8 +6,8 @@ Stigniter is a CMS built on Codeigniter 4. It is Modular, Secure & Super Fast.
 
 More information about the plans for version 4 can be found in [the announcement](http://forum.codeigniter.com/thread-62615.html) on the forums.
 
-The user guide corresponding to this version of the framework can be found
-[here](https://codeigniter4.github.io/userguide/). 
+Complete Documentation can be found at
+[here](https://steigenberg.com/docs/stigniter). 
 
 ## Installation & updates
 
