@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers;
 
 /**
@@ -26,7 +27,11 @@ class BaseController extends Controller
 	 *
 	 * @var array
 	 */
-	protected $helpers = [];
+	protected $helpers = ["angular"];
+	protected $output_data = [
+		"components" => []
+	];
+	protected $components = [];
 
 	/**
 	 * Constructor.
@@ -35,12 +40,50 @@ class BaseController extends Controller
 	{
 		// Do Not Edit This Line
 		parent::initController($request, $response, $logger);
-
-		//--------------------------------------------------------------------
-		// Preload any models, libraries, etc, here.
-		//--------------------------------------------------------------------
-		// E.g.:
-		// $this->session = \Config\Services::session();
+		$this->cleanup();
+		$this->loadSystemModules();
 	}
 
+
+	public function loadSystemModules()
+	{
+
+		$stigniter_path = ROOTPATH . "stigniter/";
+		if (file_exists($stigniter_path . 'system/system-modules')) :
+
+			$modules = scandir($stigniter_path . 'system/system-modules');
+			unset($modules[0]); /* Removes /.. */
+			unset($modules[1]); /* Removes /. */
+
+			foreach ($modules as $module) :
+				$module_path = $stigniter_path . 'system/system-modules/';
+				$components_path  = 	$module_path . $module . '/Components/';
+
+				$components = scandir($components_path);
+				unset($components[0]);
+				unset($components[1]);
+
+				foreach ($components as $component) :
+					$this->output_data['components'][] = $components_path . $component;
+				endforeach;
+
+			endforeach;
+
+		endif;
+	}
+
+	public function cleanup()
+	{
+		$folder_path = FCPATH ."scripts";
+
+		$files = glob($folder_path . '/*');
+
+		// Deleting all the files in the list 
+		foreach ($files as $file) {
+
+			if (is_file($file))
+				// Delete the given file 
+				unlink($file);
+		}
+	}
 }

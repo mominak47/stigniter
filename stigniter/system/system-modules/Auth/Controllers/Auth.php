@@ -12,7 +12,7 @@ class Auth extends BaseController
 
 	public function index()
 	{
-        echo view($this->viewpath . "test");
+        echo view($this->viewpath . "login");
 	}
 
 }
