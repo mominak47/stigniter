@@ -1,0 +1,57 @@
+[{
+    "table": "users",
+    "columns": {
+        "id": {
+            "type": "INT",
+            "constraint": 11,
+            "unsigned": true,
+            "auto_increment": true
+        },
+        "username": {
+            "type": "VARCHAR",
+            "constraint": 100,
+            "defualt": null
+        },
+        "password": {
+            "type": "VARCHAR",
+            "constraint": 100,
+            "defualt": null
+        },
+        "email": {
+            "type": "VARCHAR",
+            "constraint": 100,
+            "unique": true,
+            "default": null
+        },
+        "role": {
+            "type": "VARCHAR",
+            "constraint": 50,
+            "default": "ADMIN"
+        }
+    },
+    "first_query": "INSERT INTO `users`(username, password, email) VALUES(\"admin\", \"pass\", \"admin@vato\")"
+}, {
+    "table": "users_meta",
+    "columns": {
+        "id": {
+            "type": "INT",
+            "constraint": 11,
+            "unsigned": true,
+            "auto_increment": true
+        },
+        "user_id": {
+            "type": "INT",
+            "constraint": 11
+        },
+        "meta_key": {
+            "type": "VARCHAR",
+            "constraint": 100,
+            "defualt": null
+        },
+        "meta_value": {
+            "type": "VARCHAR",
+            "constraint": 100,
+            "defualt": null
+        }
+    }
+}]

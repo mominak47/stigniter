@@ -17,8 +17,7 @@ function generate_file($components, $name = false, $extension = "js"){
         endforeach;
     }
 
-
-    file_put_contents($component_file, $output);
+        file_put_contents($component_file, $output);
     return $public_url;
 }
 

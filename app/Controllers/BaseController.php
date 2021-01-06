@@ -17,7 +17,7 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\IncomingRequest;
-
+use \Config\Database;
 class BaseController extends Controller
 {
 
@@ -45,7 +45,9 @@ class BaseController extends Controller
 	{
 		// Do Not Edit This Line
 		parent::initController($request, $response, $logger);
+		$this->db = \Config\Database::connect();
 		$this->request = service('request');
+		$this->forge   = Database::forge();
 		$this->cleanup();
 		$this->loadSystemModules();
 	}
@@ -62,12 +64,13 @@ class BaseController extends Controller
 			unset($modules[1]); /* Removes /. */
 
 			foreach ($modules as $module) :
-				$module_name = strtolower($module);
-				$module_path = $stigniter_path . 'system/system-modules/';
-				$components_path  = 	$module_path . $module . '/Components/';
-				$routes_path  = 	$module_path . $module . '/routes.json';
-				$languages  = 	$module_path . $module . '/Languages/en.json'; /* Taking EN while development */
-				
+				$module_name 		= 	strtolower($module);
+				$module_path 		= 	$stigniter_path . 'system/system-modules/';
+				$components_path  	= 	$module_path . $module . '/Components/';
+				$routes_path  		= 	$module_path . $module . '/routes.json';
+				$languages  		= 	$module_path . $module . '/Languages/en.json'; /* Taking EN while development */
+				$db_path 				= 	$module_path . $module . '/db.json';
+
 				$components = scandir($components_path);
 				unset($components[0]);
 				unset($components[1]);
@@ -95,6 +98,17 @@ class BaseController extends Controller
 					$languages = json_decode( file_get_contents($languages) , true );
 					
 					$this->output_data['translations'][$module_name] = $languages;
+
+				endif;
+
+				/* Databases */
+				if(file_exists($db_path)):
+					$db = file_get_contents($db_path);
+					$db = json_decode($db, true);
+
+					foreach($db as $tb):
+						$this->createTable($tb);
+					endforeach;
 
 				endif;
 
@@ -126,6 +140,26 @@ class BaseController extends Controller
 			$path = $this->request->uri->getPath();
 			header("Location:".base_url("/#!/$path"));
 			exit;
+		}
+
+	}
+
+	private function createTable($table = false){
+		if(!$table) return false;
+
+		$tb_name = $table['table'];
+		$columns = $table['columns'];
+		$first_query = false;
+		if(isset($table['first_query'])){
+			$first_query = $table['first_query'];
+		}
+
+		if (!$this->db->tableExists($tb_name)){
+			$is_created = $this->forge->addPrimaryKey('id')->addField($columns)->createTable($tb_name);
+			if($is_created and $first_query){
+				/* Run First Query */
+				$this->db->query($first_query);
+			}
 		}
 
 	}

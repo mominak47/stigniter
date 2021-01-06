@@ -10,8 +10,14 @@ app.config(function($routeProvider) {
     .when("/", {
     template : "<login/>"
   })
+    .when("/register", {
+    template : "<register/>"
+  })
     .when("/auth/register", {
     template : "<register/>"
+  })
+    .when("/auth/password", {
+    template : "<password-reset/>"
   })
   });
 
