@@ -19,12 +19,6 @@ app.config(function($routeProvider) {
     .when("/auth/password", {
     template : "<password-reset/>"
   })
-    .when("/finance", {
-    template : "<finance/>"
-  })
-    .when("/sms", {
-    template : "<sms/>"
-  })
   });
 
 
