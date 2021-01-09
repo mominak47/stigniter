@@ -50,6 +50,7 @@ class BaseController extends Controller
 		$this->forge   = Database::forge();
 		$this->cleanup();
 		$this->loadSystemModules();
+		$this->loadModules();
 	}
 
 
@@ -118,6 +119,73 @@ class BaseController extends Controller
 
 		endif;
 	}
+
+	public function loadModules()
+	{
+
+		$stigniter_path = ROOTPATH . "stigniter/";
+		if (file_exists($stigniter_path . 'modules')) :
+
+			$modules = scandir($stigniter_path . 'modules');
+
+			unset($modules[0]); /* Removes /.. */
+			unset($modules[1]); /* Removes /. */
+
+			foreach ($modules as $module) :
+				$module_name 		= 	strtolower($module);
+				$module_path 		= 	$stigniter_path . 'modules/';
+				$components_path  	= 	$module_path . $module . '/Components/';
+				$routes_path  		= 	$module_path . $module . '/Config/routes.json';
+				$languages  		= 	$module_path . $module . '/Languages/en.json'; /* Taking EN while development */
+				$db_path 				= 	$module_path . $module . '/Config/db.json';
+
+				$components = scandir($components_path);
+				unset($components[0]);
+				unset($components[1]);
+
+				foreach ($components as $component) :
+					$this->output_data['components'][] = $components_path . $component;
+				endforeach;
+
+				/* Routes */
+				if(file_exists($routes_path)):
+
+					$route = json_decode( file_get_contents($routes_path) , true );
+
+					foreach($route as $r):
+						$this->angular['routes'][] = $r;
+					endforeach;
+
+				endif;
+
+
+				
+				/* Translations */
+				if(file_exists($languages)):
+
+					$languages = json_decode( file_get_contents($languages) , true );
+					
+					$this->output_data['translations'][$module_name] = $languages;
+
+				endif;
+
+				/* Databases */
+				if(file_exists($db_path)):
+					$db = file_get_contents($db_path);
+					$db = json_decode($db, true);
+
+					foreach($db as $tb):
+						$this->createTable($tb);
+					endforeach;
+
+				endif;
+
+
+			endforeach;
+
+		endif;
+	}
+
 
 	public function cleanup()
 	{
