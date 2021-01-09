@@ -60,6 +60,7 @@ class BaseController extends Controller
 		if (file_exists($stigniter_path . 'system/system-modules')) :
 
 			$modules = scandir($stigniter_path . 'system/system-modules');
+
 			unset($modules[0]); /* Removes /.. */
 			unset($modules[1]); /* Removes /. */
 
@@ -67,9 +68,9 @@ class BaseController extends Controller
 				$module_name 		= 	strtolower($module);
 				$module_path 		= 	$stigniter_path . 'system/system-modules/';
 				$components_path  	= 	$module_path . $module . '/Components/';
-				$routes_path  		= 	$module_path . $module . '/routes.json';
+				$routes_path  		= 	$module_path . $module . '/Config/routes.json';
 				$languages  		= 	$module_path . $module . '/Languages/en.json'; /* Taking EN while development */
-				$db_path 				= 	$module_path . $module . '/db.json';
+				$db_path 				= 	$module_path . $module . '/Config/db.json';
 
 				$components = scandir($components_path);
 				unset($components[0]);
