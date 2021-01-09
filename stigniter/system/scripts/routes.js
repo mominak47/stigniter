@@ -19,14 +19,11 @@ app.config(function($routeProvider) {
     .when("/auth/password", {
     template : "<password-reset/>"
   })
-    .when("/grocery", {
-    template : "<grocery/>"
-  })
     .when("/finance", {
     template : "<finance/>"
   })
-    .when("/jobs", {
-    template : "<jobs/>"
+    .when("/sms", {
+    template : "<sms/>"
   })
   });
 

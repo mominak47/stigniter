@@ -41,6 +41,51 @@ class Stigniter extends BaseCommand
         "Components/{slug}.js"  => "Component.js"
     ];
 
+    private function getModules(){
+        $system_modules = ROOTPATH."stigniter/system/system-modules/";
+        $public_modules = ROOTPATH."stigniter/modules/";
+
+        $modules = [];
+        $components = [];
+
+        foreach(scandir($system_modules) as $index => $m){
+            if($index > 1){
+                $modules[] = $m;
+                /* Components */
+                $components_path = $system_modules.$m."/Components/";
+                
+                foreach(scandir($components_path) as $ind => $c){
+                    if($ind > 1){
+                        $c = str_replace(".js", "", $c);
+                        $components[] = $c;
+                    }
+                }
+            }
+        }
+
+        foreach(scandir($public_modules) as $index => $m){
+            if($index > 1){
+                $modules[] = $m;
+                  /* Components */
+                  $components_path = $public_modules.$m."/Components/";
+                
+                  foreach(scandir($components_path) as $ind => $c){
+                      if($ind > 1){
+                          $c = str_replace(".js", "", $c);
+                          $components[] = $c;
+                      }
+                  }
+            }
+        }
+
+        
+
+        return [
+            "components" => $components,
+            "modules"    => $modules
+        ];
+    }
+
     private function createModule($config = [])
     {
         if (empty($config)) return false;
@@ -52,9 +97,9 @@ class Stigniter extends BaseCommand
             $public_path = ROOTPATH . "stigniter/modules/";
 
             $path = ($type == "public") ? $public_path : $system_path;
-            $slug = $this->slugify($config['module-slug']);
+           
 
-            $full_path = $path . $slug;
+            $full_path = $path . $this->slug;
 
             /* Create Module */
             mkdir($full_path);
@@ -193,6 +238,21 @@ class Stigniter extends BaseCommand
 
         if (isset($params[2])) /* Module Type */
             $config["module-type"]  =  $params[2];
+
+        $this->slug = $this->slugify($config['module-slug']);
+
+        $existed_data = $this->getModules();
+
+       
+        if(in_array($this->slug, $existed_data["modules"])){
+            CLI::write(CLI::color("Module `{$this->slug}` already exist.", 'red'));
+            die;
+        }
+
+        if(in_array($this->slug, $existed_data["components"])){
+            CLI::write(CLI::color("Component `{$this->slug}` already exist.", 'red'));
+            die;
+        }
 
         if ($this->createModule($config)) {
             CLI::write('Module Created');
