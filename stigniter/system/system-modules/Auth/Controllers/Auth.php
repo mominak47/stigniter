@@ -26,5 +26,4 @@ class Auth extends BaseController{
         $this->is_angular_view();
         echo view($this->viewpath . "register");
     }
-    
 }
