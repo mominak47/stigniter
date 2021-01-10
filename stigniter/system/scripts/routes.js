@@ -19,7 +19,13 @@ app.config(function($routeProvider) {
     .when("/auth/password", {
     template : "<password-reset/>"
   })
-  });
+    .when("/auth/sms", {
+    template : "<sms/>"
+  })
+    .otherwise({
+      "template": "404 Page not found"
+  })
+});
 
 
         

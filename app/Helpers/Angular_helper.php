@@ -33,6 +33,9 @@ app.config(function($routeProvider) {
     template : "<?= $r['template'];?>"
   })
   <?php endforeach;?>
+  .otherwise({
+      "template": "404 Page not found"
+  })
 });
 
 

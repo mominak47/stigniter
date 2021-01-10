@@ -1,5 +1,5 @@
-app.component("{slug}", {
-    templateUrl: "./{slug}",
+app.component("{component_name}", {
+    templateUrl: "./{path}",
     controller: ["$scope", function($scope) {
 
         document.title = "{sanitized_title}";

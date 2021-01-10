@@ -4,8 +4,7 @@ namespace SystemModules\Auth\Controllers;
 
 use App\Controllers\BaseController;
 
-class Auth extends BaseController
-{
+class Auth extends BaseController{
     function __construct(){
         $this->viewpath = "\SystemModules\Auth\Views\\";
     }
@@ -26,6 +25,6 @@ class Auth extends BaseController
 	{
         $this->is_angular_view();
         echo view($this->viewpath . "register");
-	}
-
+    }
+    
 }

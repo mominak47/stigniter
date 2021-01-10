@@ -5,12 +5,16 @@ namespace App\Commands;
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
 
-class Stigniter extends BaseCommand
+class Module extends BaseCommand
 {
 
     protected $group       = 'Steigenberg';
     protected $name        = 'create-module';
-    protected $description = 'Creates module boilerplate.';
+    protected $description = 'Creates module boilerplate.
+    Example: php spark create-module {SLUG} {TITLE} {TYPE}
+    {SLUG}  : Unique slug name for module
+    {TITLE} : Title for module
+    {TYPE}  : System Module or Public Module, Possible values: system, public. Default: public';
 
     protected $folders = [
         "Components",
@@ -112,7 +116,9 @@ class Stigniter extends BaseCommand
                 "module-path" => $full_path,
                 "module-type" => ($type == "public") ? "Modules" : "SystemModules",
                 "slug"        => $config['module-slug'],
-                "sanitized_title" => $this->title
+                "sanitized_title" => $this->title,
+                "path"        => $config['module-slug'],
+                "component_name" => $config['module-slug']
             ];
 
 
