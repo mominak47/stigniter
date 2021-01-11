@@ -4,7 +4,8 @@
 
         <md-card style="margin:0;border-radius:8px;">
             <md-content layout-padding style="border-radius: 8px;">
-                
+
+            <verify></verify>
             <div ng-if="!loading">
                 <div layout="column" layout-align="center center">
                     <figure>

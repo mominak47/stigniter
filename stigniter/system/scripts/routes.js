@@ -22,6 +22,9 @@ app.config(function($routeProvider) {
     .when("/auth/sms", {
     template : "<sms/>"
   })
+    .when("/auth/verify", {
+    template : "<verify/>"
+  })
     .otherwise({
       "template": "404 Page not found"
   })

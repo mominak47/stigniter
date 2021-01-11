@@ -8,3 +8,4 @@ $routes->get('auth/password', '\SystemModules\Auth\Controllers\Auth::password');
 $routes->get('register', '\SystemModules\auth\Controllers\Auth::register');
 $routes->get('auth/translations', '\SystemModules\Auth\Controllers\Auth::translations');
 $routes->get('auth/sms', '\SystemModules\auth\Controllers\SMS::index');
+$routes->get('auth/verify', '\SystemModules\auth\Controllers\Verify::index');

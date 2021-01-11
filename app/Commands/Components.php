@@ -12,8 +12,9 @@ class Components extends BaseCommand
     protected $name        = 'create-component';
     protected $description = 'Creates component with its view and route.
     Example: php spark create-component {MODULE SLUG} {COMPONENT SLUG}
-    {MODULE SLUG}  : Module slug name of which component is being created.
-    {COMPONENT SLUG} : Unique slug for the component. Which will later become <name/>';
+    {MODULE SLUG}    : Module slug name of which component is being created.
+    {COMPONENT SLUG} : Unique slug for the component. Which will later become <name/>
+    {Title}          : Title for the Component';
 
     protected $folders = [
         "Components",
@@ -164,7 +165,6 @@ class Components extends BaseCommand
                 $template_view = str_replace("{".$index."}", $val, $template_view);
             /* View File Create */
 
-
             file_put_contents($full_path."/Config/Routes.php", $routes_output);
             file_put_contents($full_path."/Config/routes.json", json_encode($routes['angular']));
             file_put_contents($ctrl_path, $template_ctrl);
@@ -298,12 +298,10 @@ class Components extends BaseCommand
 
         if (file_exists(ROOTPATH . "stigniter/modules/{$this->slug}") || file_exists(ROOTPATH . "stigniter/system/system-modules/{$this->slug}")) {
 
-
             if ($this->createComponent($config)) {
                 CLI::write('Component Created');
                 CLI::write('View: ' . CLI::color("http://localhost:8080/{$this->slug}/{$this->component_slug}", 'green'));
             }
-
 
         }else{
             CLI::write('Error Occured: ' . CLI::color("There is no module by `{$this->slug}` ", 'red'));
